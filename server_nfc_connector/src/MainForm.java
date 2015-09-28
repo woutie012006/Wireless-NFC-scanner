@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import com.wouterv.server_nfc_connector.Server;
 /**
@@ -8,6 +10,7 @@ public class MainForm
 {
     private JPanel panel;
     private JLabel lbl1;
+    private JLabel lblIp;
     private String lastTag;
     private ArrayList<String> lastTech = new ArrayList<>();
 
@@ -20,14 +23,20 @@ public class MainForm
         frame.setContentPane(mf.panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setSize(200, 300);
         frame.setVisible(true);
-        frame.setSize(100, 100);
 
     }
     public MainForm()
     {
         lbl1.setText("");
-        Server s = new Server("Thread 1");
+        try {
+            lblIp.setText("IP-adres : " + InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        Server s = new Server("Thread 1", lbl1);
         s.start();
     }
     public void setLbl1(String Text)

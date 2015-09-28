@@ -1,5 +1,6 @@
 package com.wouterv.server_nfc_connector;
 
+import javax.swing.*;
 import java.io.*;
 import java.lang.management.ThreadMXBean;
 import java.net.ServerSocket;
@@ -13,9 +14,8 @@ public class Server extends Thread
 {
     private Thread t;
     private String threadName;
-    //MainForm mf;
     private String lastTag;
-
+    private JLabel lblTag;
     public String getLastTag()
     {
         return lastTag;
@@ -30,7 +30,12 @@ public class Server extends Thread
 
     public Server(String name){
         threadName = name;
-        //this.mf = mf;
+        System.out.println("Creating " +  threadName );
+
+    }
+    public Server(String name, JLabel lblTag){
+        this.threadName = name;
+        this.lblTag = lblTag;
         System.out.println("Creating " +  threadName );
 
     }
@@ -50,16 +55,12 @@ public class Server extends Thread
             String number = br.readLine();
             System.out.println("Message received from client is "+number);
 
-            if(number.length()>0)
+            lastTag = number;
+            if(lblTag!=null)
             {
-             //   mf.setLbl1(number);
-                lastTag = number;
+                lblTag.setText(number);
             }
-            else
-            {
-                System.out.println("nothing : " + number);
 
-            }
         }
     }
     public void run()

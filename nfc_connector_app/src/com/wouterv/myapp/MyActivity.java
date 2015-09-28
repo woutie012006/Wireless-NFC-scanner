@@ -148,7 +148,12 @@ public class MyActivity extends Activity
             TextView t = (TextView) findViewById(R.id.Text1);
             t.setText(sb);
 
-            new SendMessage((EditText)findViewById(R.id.ip)).execute(tagId);
+            new SendMessage((EditText)findViewById(R.id.ip)).execute(tag.toString());
+            new SendMessage((EditText)findViewById(R.id.ip)).execute(tag.getTechList());
+            new SendMessage((EditText)findViewById(R.id.ip)).execute(String.valueOf(tag.describeContents()));
+            new SendMessage((EditText)findViewById(R.id.ip)).execute(String.valueOf(tag.getId()));
+
+
             return;
         }
     }
